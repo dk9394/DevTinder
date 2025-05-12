@@ -1,0 +1,17 @@
+.card-group {
+  flex-wrap: wrap;
+
+  .card {
+    flex: 1 0 100%;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  @media screen and (min-width: 992px) {
+    .card {
+      flex: 1 0 45%;
+    }
+  }
+}
