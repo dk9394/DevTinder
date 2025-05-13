@@ -2,11 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-panel',
-  standalone: true,
-  imports: [],
+  standalone: false,
   templateUrl: './panel.component.html',
-  styleUrl: './panel.component.scss'
+  styleUrl: './panel.component.scss',
 })
-export class PanelComponent {
-
-}
+export class PanelComponent {}

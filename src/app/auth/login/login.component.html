@@ -4,28 +4,61 @@
       <h1>Login</h1>
       <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
         <div class="mb-3">
-          <label for="email" class="form-label">Email address</label>
+          <label for="emailId" class="form-label">Email</label>
           <input
-            type="email"
-            id="email"
-            name="email"
+            type="emailId"
+            id="emailId"
+            name="emailId"
             class="form-control"
-            required
+            [class.is-invalid]="
+              (emailField?.touched || emailField?.dirty) && !emailField?.valid
+            "
             formControlName="emailId"
+            placeholder="Enter your email"
+            required
           />
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              (emailField?.touched || emailField?.dirty) && !emailField?.valid
+            "
+          >
+            Please enter a valid email address.
+          </div>
         </div>
         <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
+          <label for="passwordField" class="form-label">Password</label>
           <input
             type="password"
             id="password"
             name="password"
             class="form-control"
-            required
+            [class.is-invalid]="
+              (passwordField?.touched || passwordField?.dirty) &&
+              !passwordField?.valid
+            "
             formControlName="password"
+            placeholder="Enter your password"
+            required
           />
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              (passwordField?.touched || passwordField?.dirty) &&
+              !passwordField?.valid
+            "
+          >
+            Please enter 6 digits valid password.
+          </div>
         </div>
-        <button type="submit" class="btn btn-primary">Login</button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="!loginForm.valid"
+        >
+          Login
+        </button>
+        <!-- <button type="button" (click)="onToastShow()">Show Toast</button> -->
 
         <!-- <p>{{ expiresAt | date : "h:mm a" }}</p> -->
         <p>
@@ -36,3 +69,19 @@
     </div>
   </div>
 </section>
+<!-- <div
+  class="toast align-items-center text-white bg-primary border-0"
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+>
+  <div class="d-flex">
+    <div class="toast-body">Hello, world! This is a toast message.</div>
+    <button
+      type="button"
+      class="btn-close btn-close-white me-2 m-auto"
+      data-bs-dismiss="toast"
+      aria-label="Close"
+    ></button>
+  </div>
+</div> -->

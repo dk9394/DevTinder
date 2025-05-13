@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { ApiService } from '../../shared/services/api.service';
-import { Router } from '@angular/router';
+import { ApiService } from '../../core/services/api.service';
+import { UserService } from '../../shared/services/user.service';
+import { IUserResponse, User } from '../../shared/models/user.model';
+import { catchError, take, throwError } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,32 +19,61 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
-    private router: Router
+    private userService: UserService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
+
+  get emailField() {
+    return this.loginForm.get('emailId');
+  }
+
+  get passwordField() {
+    return this.loginForm.get('password');
+  }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
-      emailId: this.fb.control('todd@gmail.com'),
-      password: this.fb.control('Todd@123'),
+      emailId: this.fb.control('todd@gmail.com', [
+        Validators.required,
+        Validators.email,
+      ]),
+      password: this.fb.control('Todd@123', [
+        Validators.required,
+        Validators.minLength(6),
+      ]),
     });
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log(this.loginForm.value);
       this.apiService.auth
         .post('/login', this.loginForm.value)
-        .pipe()
-        .subscribe(
-          (response: any) => {
-            console.log('Login successful', response);
-          },
-          (error) => {
-            console.error('Login failed', error);
-          }
-        );
+        .pipe(
+          take(1),
+          catchError((error) => {
+            return throwError(() => error);
+          })
+        )
+        .subscribe((response: IUserResponse) => {
+          console.log('Login response:', response);
+          const user = new User(response);
+          this.userService.setCurrentUser(user);
+          this.apiService.setTokenAndExpiry(response.expiresAt);
+          this.router.navigate(['../../feeds'], {
+            relativeTo: this.route,
+          });
+        });
     } else {
       console.log('Form is invalid');
     }
   }
+
+  // onToastShow() {
+  //   const myToastEl = document.getElementById('myToast');
+  //   myToastEl.addEventListener('hidden.bs.toast', function () {
+  //     // do something...
+  //   });
+  //   console.log('Toast is shown');
+  // }
 }

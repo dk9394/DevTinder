@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
-import { ApiService } from './services/api.service';
+import { PanelComponent } from './components/panel/panel.component';
 
 @NgModule({
-  declarations: [],
-  imports: [CommonModule],
-  providers: [ApiService],
+  declarations: [PanelComponent],
+  imports: [CommonModule, HttpClientModule],
+  exports: [PanelComponent],
 })
 export class SharedModule {}

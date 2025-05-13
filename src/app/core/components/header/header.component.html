@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" href="#">DevTinder</a>
+    <a class="navbar-brand" [routerLink]="['/']">DevTinder</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -13,13 +13,24 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mb-2 mb-lg-0">
-        <!-- <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+      <ul class="navbar-nav mb-2 mb-lg-0" *ngIf="!isLoggedIn">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            aria-current="page"
+            [routerLink]="['/', 'auth', 'login']"
+            routerLinkActive="active"
+            >Login</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li> -->
+          <a
+            class="nav-link"
+            [routerLink]="['/', 'auth', 'signup']"
+            routerLinkActive="active"
+            >Sign up</a
+          >
+        </li>
 
         <!-- <li class="nav-item">
           <a
@@ -27,11 +38,11 @@
             href="#"
             tabindex="-1"
             aria-disabled="true"
-            >Disabled</a
+            >Disabled link</a
           >
         </li> -->
       </ul>
-      <form class="d-flex">
+      <!-- <form class="d-flex">
         <input
           class="form-control me-2"
           type="search"
@@ -39,10 +50,11 @@
           aria-label="Search"
         />
         <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      </form> -->
       <ul class="navbar-nav mb-2 mb-lg-0">
         <li class="nav-item dropdown">
           <a
+            *ngIf="isLoggedIn"
             class="nav-link dropdown-toggle profile-dropdown"
             href="#"
             id="navbarDropdown"
@@ -50,11 +62,13 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <span>Deepak Kumar</span>
+            <span
+              >{{ currentUser?.firstName }} {{ currentUser?.lastName }}</span
+            >
             <div class="profile-icon">
               <img
-                src="https://www.pngfind.com/pngs/m/665-6650067_business-man-signo-de-estudiantes-hd-png-download.png"
-                alt=""
+                [src]="currentUser?.profileIconUrl"
+                [alt]="currentUser?.firstName + ' ' + currentUser?.lastName"
               />
             </div>
           </a>
@@ -69,9 +83,9 @@
               <a class="dropdown-item" href="#">Connections</a>
             </li>
             <li><hr class="dropdown-divider" /></li>
-            <li><a class="dropdown-item" href="#">Login</a></li>
-            <li><a class="dropdown-item" href="#">Sign up</a></li>
-            <li><a class="dropdown-item" href="#">Logout</a></li>
+            <li>
+              <a class="dropdown-item logout" (click)="onLogout()">Logout</a>
+            </li>
           </ul>
         </li>
       </ul>
