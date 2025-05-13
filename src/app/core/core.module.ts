@@ -9,4 +9,4 @@ import { FooterComponent } from './components/footer/footer.component';
   imports: [CommonModule, HeaderComponent, FooterComponent],
   exports: [HeaderComponent, FooterComponent],
 })
-export class BaseModule {}
+export class CoreModule {}
