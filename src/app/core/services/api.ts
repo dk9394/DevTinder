@@ -7,55 +7,49 @@ import { Observable } from 'rxjs';
 })
 export class Api {
   baseUrl: string = 'http://localhost:3000';
-  token: string = '';
-  expiresAt: Date | null = null;
-  headers: HttpHeaders = new HttpHeaders({
-    'Content-Type': 'application/json',
-  });
-  constructor(
-    private http: HttpClient,
-    @Inject('COLLECTION') private collection: string
-  ) {}
 
-  setTokenAndExpiry(expiresAt: string) {
-    const cookies = document.cookie.split('; ');
-    const tokenCookie = cookies.find((row) => row.startsWith('token='));
-    this.token = tokenCookie ? tokenCookie.split('=')[1] : '';
-    this.expiresAt = new Date(expiresAt);
+  headers = { 'Content-Type': 'application/json' };
 
-    this.headers = new HttpHeaders({
+  private setHeaders(customHeaders = {}): HttpHeaders {
+    return new HttpHeaders({
       ...this.headers,
-      Authorization: 'Bearer ' + this.token,
+      ...customHeaders,
     });
   }
 
+  constructor(
+    private http: HttpClient,
+    @Inject('COLLECTION') private collection: string,
+    @Inject('HEADERS') private customHeaders: HttpHeaders
+  ) {}
+
   get<T>(endpoint: string = ''): Observable<T> {
     return this.http.get<T>(this.setUrl(endpoint), {
-      headers: this.headers,
+      headers: this.setHeaders(this.customHeaders),
     });
   }
 
   post<T>(endpoint: string = '', payload: T): Observable<T> {
     return this.http.post<T>(this.setUrl(endpoint), payload, {
-      headers: this.headers,
+      headers: this.setHeaders(this.customHeaders),
     });
   }
 
   put<T>(endpoint: string = '', payload: T): Observable<T> {
     return this.http.put<T>(this.setUrl(endpoint), payload, {
-      headers: this.headers,
+      headers: this.setHeaders(this.customHeaders),
     });
   }
 
   patch<T>(endpoint: string = '', payload: T): Observable<T> {
     return this.http.patch<T>(this.setUrl(endpoint), payload, {
-      headers: this.headers,
+      headers: this.setHeaders(this.customHeaders),
     });
   }
 
   delete<T>(endpoint: string = ''): Observable<T> {
     return this.http.delete<T>(this.setUrl(endpoint), {
-      headers: this.headers,
+      headers: this.setHeaders(this.customHeaders),
     });
   }
 

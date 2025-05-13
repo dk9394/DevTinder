@@ -1,5 +1,5 @@
 .navbar-collapse {
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 .profile-dropdown {
@@ -17,4 +17,8 @@
       max-width: 100%;
     }
   }
+}
+
+.logout {
+  cursor: pointer;
 }
