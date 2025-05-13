@@ -1,1 +1,38 @@
-<p>login works!</p>
+<section class="login container">
+  <div class="row">
+    <div class="col-lg-4">
+      <h1>Login</h1>
+      <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="form-control"
+            required
+            formControlName="emailId"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="form-control"
+            required
+            formControlName="password"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+
+        <!-- <p>{{ expiresAt | date : "h:mm a" }}</p> -->
+        <p>
+          Not a member yet? Please
+          <a [routerLink]="['../', 'signup']">sign up</a> here.
+        </p>
+      </form>
+    </div>
+  </div>
+</section>

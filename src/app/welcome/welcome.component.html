@@ -1,1 +1,33 @@
-<p>welcome works!</p>
+<section class="welcome container">
+  <div class="row">
+    <div class="col-lg-4">
+      <h1>Welcome to DevTinder</h1>
+      <p>
+        DevTinder is a social networking platform for developers. Connect with
+        other developers, share your projects, and find new opportunities.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4">
+      <h2>Features</h2>
+      <ul>
+        <li>Connect with other developers</li>
+        <li>Share your projects</li>
+        <li>Find new opportunities</li>
+        <li>Join a community of like-minded individuals</li>
+      </ul>
+    </div>
+    <div class="col-lg-4">
+      <h2>Get Started</h2>
+      <p>
+        To get started, please
+        <a [routerLink]="['/auth', 'login']">log in</a> to your account.
+      </p>
+      <p>
+        If you don't have an account, please
+        <a [routerLink]="['/auth', 'signup']">sign up</a> here.
+      </p>
+    </div>
+  </div>
+</section>
