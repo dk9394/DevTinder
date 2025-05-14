@@ -26,30 +26,35 @@ export class Api {
   get<T>(endpoint: string = ''): Observable<T> {
     return this.http.get<T>(this.setUrl(endpoint), {
       headers: this.setHeaders(this.customHeaders),
+      withCredentials: true,
     });
   }
 
   post<T>(endpoint: string = '', payload: T): Observable<T> {
     return this.http.post<T>(this.setUrl(endpoint), payload, {
       headers: this.setHeaders(this.customHeaders),
+      withCredentials: true,
     });
   }
 
   put<T>(endpoint: string = '', payload: T): Observable<T> {
     return this.http.put<T>(this.setUrl(endpoint), payload, {
       headers: this.setHeaders(this.customHeaders),
+      withCredentials: true,
     });
   }
 
   patch<T>(endpoint: string = '', payload: T): Observable<T> {
     return this.http.patch<T>(this.setUrl(endpoint), payload, {
       headers: this.setHeaders(this.customHeaders),
+      withCredentials: true,
     });
   }
 
   delete<T>(endpoint: string = ''): Observable<T> {
     return this.http.delete<T>(this.setUrl(endpoint), {
       headers: this.setHeaders(this.customHeaders),
+      withCredentials: true,
     });
   }
 
