@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 import { ApiService } from '../../core/services/api.service';
 import { UserService } from '../../shared/services/user.service';
@@ -24,12 +29,16 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
-  get emailField() {
-    return this.loginForm.get('emailId');
+  get emailIdField() {
+    return this.loginForm.get('emailId')!;
   }
 
   get passwordField() {
-    return this.loginForm.get('password');
+    return this.loginForm.get('password')!;
+  }
+
+  showFieldError(field: AbstractControl): boolean {
+    return (field?.touched || field?.dirty) && !field?.valid;
   }
 
   ngOnInit() {
