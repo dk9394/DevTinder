@@ -10,9 +10,22 @@
             id="firstName"
             name="firstName"
             class="form-control"
-            required
+            [class.is-invalid]="showFieldError(firstNameField)"
             formControlName="firstName"
+            placeholder="Enter your first name"
+            required
           />
+          <div class="invalid-feedback" *ngIf="showFieldError(firstNameField)">
+            <span *ngIf="firstNameField?.errors?.['required']">
+              First name is required.
+            </span>
+            <span *ngIf="firstNameField?.errors?.['minlength']">
+              Minimum 3 characters are required.
+            </span>
+            <span *ngIf="firstNameField?.errors?.['maxlength']">
+              Maximum 20 characters are allowed.
+            </span>
+          </div>
         </div>
         <div class="mb-3">
           <label for="lastName" class="form-label">Last Name</label>
@@ -21,20 +34,43 @@
             id="lastName"
             name="lastName"
             class="form-control"
-            required
+            [class.is-invalid]="showFieldError(lastNameField)"
             formControlName="lastName"
+            placeholder="Enter your last name"
+            required
           />
+          <div class="invalid-feedback" *ngIf="showFieldError(lastNameField)">
+            <span *ngIf="lastNameField?.errors?.['required']">
+              Last name is required.
+            </span>
+            <span *ngIf="lastNameField?.errors?.['minlength']">
+              Minimum 3 characters are required.
+            </span>
+            <span *ngIf="lastNameField?.errors?.['maxlength']">
+              Maximum 20 characters are allowed.
+            </span>
+          </div>
         </div>
         <div class="mb-3">
-          <label for="email" class="form-label">Email address</label>
+          <label for="emailId" class="form-label">Email address</label>
           <input
-            type="email"
-            id="email"
-            name="email"
+            type="emailId"
+            id="emailId"
+            name="emailId"
             class="form-control"
-            required
+            [class.is-invalid]="showFieldError(emailIdField)"
             formControlName="emailId"
+            placeholder="Enter your email"
+            required
           />
+          <div class="invalid-feedback" *ngIf="showFieldError(emailIdField)">
+            <span *ngIf="emailIdField?.errors?.['required']">
+              Email is required.
+            </span>
+            <span *ngIf="emailIdField?.errors?.['email']">
+              Please enter a valid email address.
+            </span>
+          </div>
         </div>
         <div class="mb-3">
           <label for="password" class="form-label">Password</label>
@@ -43,9 +79,19 @@
             id="password"
             name="password"
             class="form-control"
-            required
+            [class.is-invalid]="showFieldError(passwordField)"
             formControlName="password"
+            placeholder="Enter your password"
+            required
           />
+          <div class="invalid-feedback" *ngIf="showFieldError(passwordField)">
+            <span *ngIf="passwordField?.errors?.['required']">
+              Password is required.
+            </span>
+            <span *ngIf="passwordField?.errors?.['minlength']">
+              Minimum 6 characters are required.
+            </span>
+          </div>
         </div>
         <div class="mb-3">
           <label for="confirmPassword" class="form-label"
@@ -56,12 +102,26 @@
             id="confirmPassword"
             name="confirmPassword"
             class="form-control"
-            required
+            [class.is-invalid]="showFieldError(confirmPasswordField)"
             formControlName="confirmPassword"
+            placeholder="Confirm your password"
           />
+          <div
+            class="invalid-feedback"
+            *ngIf="showFieldError(confirmPasswordField)"
+          >
+            <span *ngIf="confirmPasswordField?.errors?.['passwordMatchError']">
+              Password is not matching.
+            </span>
+          </div>
         </div>
-        <button type="submit" class="btn btn-primary">Sign up</button>
-
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="!signupForm.valid"
+        >
+          Sign up
+        </button>
         <p>
           Already a member yet? Please
           <a [routerLink]="['../', 'login']">Login</a> here.

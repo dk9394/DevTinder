@@ -10,20 +10,18 @@
             id="emailId"
             name="emailId"
             class="form-control"
-            [class.is-invalid]="
-              (emailField?.touched || emailField?.dirty) && !emailField?.valid
-            "
+            [class.is-invalid]="showFieldError(emailIdField)"
             formControlName="emailId"
             placeholder="Enter your email"
             required
           />
-          <div
-            class="invalid-feedback"
-            *ngIf="
-              (emailField?.touched || emailField?.dirty) && !emailField?.valid
-            "
-          >
-            Please enter a valid email address.
+          <div class="invalid-feedback" *ngIf="showFieldError(emailIdField)">
+            <span *ngIf="emailIdField?.errors?.['required']">
+              Email is required.
+            </span>
+            <span *ngIf="emailIdField?.errors?.['email']">
+              Please enter a valid email address.
+            </span>
           </div>
         </div>
         <div class="mb-3">
@@ -33,22 +31,18 @@
             id="password"
             name="password"
             class="form-control"
-            [class.is-invalid]="
-              (passwordField?.touched || passwordField?.dirty) &&
-              !passwordField?.valid
-            "
+            [class.is-invalid]="showFieldError(passwordField)"
             formControlName="password"
             placeholder="Enter your password"
             required
           />
-          <div
-            class="invalid-feedback"
-            *ngIf="
-              (passwordField?.touched || passwordField?.dirty) &&
-              !passwordField?.valid
-            "
-          >
-            Please enter 6 digits valid password.
+          <div class="invalid-feedback" *ngIf="showFieldError(passwordField)">
+            <span *ngIf="passwordField?.errors?.['required']">
+              Password is required.
+            </span>
+            <span *ngIf="passwordField?.errors?.['minlength']">
+              Minimum 6 characters are required.
+            </span>
           </div>
         </div>
         <button
