@@ -30,21 +30,21 @@ export class Api {
     });
   }
 
-  post<T>(endpoint: string = '', payload: T): Observable<T> {
+  post<T>(endpoint: string = '', payload: any): Observable<T> {
     return this.http.post<T>(this.setUrl(endpoint), payload, {
       headers: this.setHeaders(this.customHeaders),
       withCredentials: true,
     });
   }
 
-  put<T>(endpoint: string = '', payload: T): Observable<T> {
+  put<T>(endpoint: string = '', payload: any): Observable<T> {
     return this.http.put<T>(this.setUrl(endpoint), payload, {
       headers: this.setHeaders(this.customHeaders),
       withCredentials: true,
     });
   }
 
-  patch<T>(endpoint: string = '', payload: T): Observable<T> {
+  patch<T>(endpoint: string = '', payload: any): Observable<T> {
     return this.http.patch<T>(this.setUrl(endpoint), payload, {
       headers: this.setHeaders(this.customHeaders),
       withCredentials: true,

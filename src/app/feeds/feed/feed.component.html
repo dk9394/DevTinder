@@ -1,7 +1,15 @@
-<div class="card">
-  <img src="..." class="card-img-top" alt="..." />
+<div class="card" *ngIf="feed">
+  <div class="card-header">
+    <div class="image-wrapper">
+      <img
+        [src]="feed.profileIconUrl"
+        class="card-img-top"
+        [alt]="feed.firstName"
+      />
+    </div>
+  </div>
   <div class="card-body">
-    <h5 class="card-title">Card title</h5>
+    <h5 class="card-title">{{ feed.firstName + " " + feed.lastName }}</h5>
     <p class="card-text">
       This is a wider card with supporting text below as a natural lead-in to
       additional content. This content is a little bit longer.
@@ -9,5 +17,11 @@
   </div>
   <div class="card-footer">
     <small class="text-muted">Last updated 3 mins ago</small>
+    <div class="actions">
+      <button type="button" class="btn btn-primary interested">
+        Interested
+      </button>
+      <button type="button" class="btn btn-secondary ignore">Ignore</button>
+    </div>
   </div>
 </div>
