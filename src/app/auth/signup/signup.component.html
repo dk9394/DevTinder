@@ -4,10 +4,10 @@
       <h1>Sign up</h1>
       <form (ngSubmit)="onSubmit()" [formGroup]="signupForm">
         <div class="mb-3">
-          <label for="firstName" class="form-label">First Name</label>
+          <label for="signupFirstName" class="form-label">First Name</label>
           <input
-            type="firstName"
-            id="firstName"
+            type="text"
+            id="signupFirstName"
             name="firstName"
             class="form-control"
             [class.is-invalid]="showFieldError(firstNameField)"
@@ -28,10 +28,10 @@
           </div>
         </div>
         <div class="mb-3">
-          <label for="lastName" class="form-label">Last Name</label>
+          <label for="signupLastName" class="form-label">Last Name</label>
           <input
-            type="lastName"
-            id="lastName"
+            type="text"
+            id="signupLastName"
             name="lastName"
             class="form-control"
             [class.is-invalid]="showFieldError(lastNameField)"
@@ -52,10 +52,10 @@
           </div>
         </div>
         <div class="mb-3">
-          <label for="emailId" class="form-label">Email address</label>
+          <label for="signupEmailId" class="form-label">Email address</label>
           <input
-            type="emailId"
-            id="emailId"
+            type="email"
+            id="signupEmailId"
             name="emailId"
             class="form-control"
             [class.is-invalid]="showFieldError(emailIdField)"
@@ -73,10 +73,10 @@
           </div>
         </div>
         <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
+          <label for="signupPassword" class="form-label">Password</label>
           <input
             type="password"
-            id="password"
+            id="signupPassword"
             name="password"
             class="form-control"
             [class.is-invalid]="showFieldError(passwordField)"
@@ -94,12 +94,12 @@
           </div>
         </div>
         <div class="mb-3">
-          <label for="confirmPassword" class="form-label"
+          <label for="signupConfirmPassword" class="form-label"
             >Confirm Password</label
           >
           <input
-            type="confirmPassword"
-            id="confirmPassword"
+            type="password"
+            id="signupConfirmPassword"
             name="confirmPassword"
             class="form-control"
             [class.is-invalid]="showFieldError(confirmPasswordField)"

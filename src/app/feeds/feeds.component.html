@@ -1,12 +1,5 @@
 <div class="container">
   <div class="card-group">
-    <app-feed class="card"></app-feed>
-    <app-feed class="card"></app-feed>
-    <app-feed class="card"></app-feed>
-    <app-feed class="card"></app-feed>
-    <app-feed class="card"></app-feed>
-    <app-feed class="card"></app-feed>
-    <app-feed class="card"></app-feed>
-    <app-feed class="card"></app-feed>
+    <app-feed *ngFor="let feed of feeds" class="card" [feed]="feed"></app-feed>
   </div>
 </div>

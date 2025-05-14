@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+import { IUser } from '../../app-services/user.model';
 
 @Component({
   selector: 'app-feed',
-  standalone: true,
-  imports: [],
+  standalone: false,
   templateUrl: './feed.component.html',
-  styleUrl: './feed.component.scss'
+  styleUrl: './feed.component.scss',
 })
 export class FeedComponent {
-
+  @Input() feed!: IUser;
 }

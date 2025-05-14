@@ -28,8 +28,10 @@ export class ApiService {
   }
 
   auth: Api;
+  feeds: Api;
 
   constructor(private http: HttpClient) {
-    this.auth = new Api(this.http, '', this.headers);
+    this.auth = new Api(this.http, '/auth', this.headers);
+    this.feeds = new Api(this.http, '/feeds', this.headers);
   }
 }

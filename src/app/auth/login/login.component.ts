@@ -5,12 +5,13 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-
-import { ApiService } from '../../core/services/api.service';
-import { UserService } from '../../shared/services/user.service';
-import { IUserResponse, User } from '../../shared/models/user.model';
-import { catchError, take, throwError } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { ApiService } from '../../app-services/api.service';
+import { UserService } from '../../app-services/user.service';
+import { AuthService } from '../auth.service';
+import { ILoginResponse } from '../auth.model';
+import { User } from '../../app-services/user.model';
 
 @Component({
   selector: 'app-login',
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private apiService: ApiService,
     private userService: UserService,
+    private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -56,23 +58,21 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      this.apiService.auth
-        .post('/login', this.loginForm.value)
-        .pipe(
-          take(1),
-          catchError((error) => {
-            return throwError(() => error);
-          })
-        )
-        .subscribe((response: IUserResponse) => {
-          console.log('Login response:', response);
-          const user = new User(response);
+      // this.authService.login(this.loginForm.value).subscribe({
+      this.apiService.auth.post('/login', this.loginForm.value).subscribe(
+        (response: any) => {
+          console.log(response);
+          const user = new User(response.data);
           this.userService.setCurrentUser(user);
           this.apiService.setTokenAndExpiry(response.expiresAt);
           this.router.navigate(['../../feeds'], {
             relativeTo: this.route,
           });
-        });
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
     } else {
       console.log('Form is invalid');
     }

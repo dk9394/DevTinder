@@ -4,10 +4,10 @@
       <h1>Login</h1>
       <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
         <div class="mb-3">
-          <label for="emailId" class="form-label">Email</label>
+          <label for="loginEmailId" class="form-label">Email</label>
           <input
-            type="emailId"
-            id="emailId"
+            type="email"
+            id="loginEmailId"
             name="emailId"
             class="form-control"
             [class.is-invalid]="showFieldError(emailIdField)"
@@ -25,10 +25,10 @@
           </div>
         </div>
         <div class="mb-3">
-          <label for="passwordField" class="form-label">Password</label>
+          <label for="loginPasswordField" class="form-label">Password</label>
           <input
             type="password"
-            id="password"
+            id="loginPasswordField"
             name="password"
             class="form-control"
             [class.is-invalid]="showFieldError(passwordField)"

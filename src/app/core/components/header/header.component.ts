@@ -1,9 +1,10 @@
+import { AuthService } from './../../../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { UserService } from './../../../shared/services/user.service';
-import { IUser } from '../../../shared/models/user.model';
-import { ApiService } from '../../services/api.service';
+import { UserService } from '../../../app-services/user.service';
+import { ApiService } from '../../../app-services/api.service';
+import { IUser } from '../../../app-services/user.model';
 
 @Component({
   selector: 'app-header',
@@ -18,23 +19,29 @@ export class HeaderComponent implements OnInit {
   constructor(
     private userService: UserService,
     private apiService: ApiService,
+    private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.userService.getCurrentUser().subscribe((user) => {
-      this.currentUser = user;
-      this.isLoggedIn = !!user;
+    this.userService.getCurrentUser().subscribe({
+      next: (user) => {
+        console.log('user', user);
+        this.currentUser = user;
+        this.isLoggedIn = !!user;
+      },
     });
   }
 
   onLogout(): void {
-    this.apiService.auth.post('/logout', {}).subscribe(() => {
-      this.userService.clearCurrentUser();
-      this.isLoggedIn = false;
-      this.apiService.clearToken();
-      this.router.navigate(['../'], { relativeTo: this.route });
+    this.authService.logout().subscribe({
+      next: (res) => {
+        this.userService.clearCurrentUser();
+        this.isLoggedIn = false;
+        this.apiService.clearToken();
+        this.router.navigate(['../'], { relativeTo: this.route });
+      },
     });
   }
 }
