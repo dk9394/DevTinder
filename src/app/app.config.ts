@@ -5,6 +5,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { routes } from './app.routes';
 import { AppServicesModule } from './app-services/app-services.module';
 import { CoreModule } from './core/core.module';
+import { AuthGuard } from './auth/auth.guard';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -12,6 +13,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     AppServicesModule,
     CoreModule,
+    AuthGuard,
     provideHttpClient(),
   ],
 };
